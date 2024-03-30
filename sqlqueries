@@ -1,4 +1,5 @@
---łączymy datę tak, abysmy mieli datę wydania(najpierw musimy strworzyć osobną kolumnę)--
+--we combine the date so that we have the release date (first we need to create a separate column)--
+
 ALTER TABLE ign_games ADD release_date DATE
 
 UPDATE ign_games
@@ -12,7 +13,7 @@ SET release_date = CONCAT(
 
 
 
---wybieramy wyniki które mają score = 10 i niepowatrzające się tytuły (różne platformy, te same gry) --
+--select results that have score = 10 and non-duplicate titles (different platforms, same games) --
 
 SELECT *
 FROM (
@@ -29,7 +30,8 @@ FROM (
 WHERE row_num = 1 AND score= 10.0
 ORDER BY score DESC
 
---liczmy ile jest tytułów z oceną 10 --
+--let's count how many titles there are with a rating of 10-
+
 SELECT COUNT(*) as liczba_wyników_top
 FROM (
     SELECT 
@@ -47,7 +49,8 @@ FROM (
 WHERE row_num = 1 AND score= 10.0
 ORDER BY score DESC
 
---liczymy średni wynik dla każdej genre(nadal unikalne tytuły) i układamy je od najwyższego do najniższego--
+--we calculate the average score for each genre (still unique titles) and arrange them from highest to lowest--
+
 SELECT 
     genre, 
     AVG(score) as sredni_wynik
@@ -63,8 +66,7 @@ WHERE row_num = 1
 GROUP BY genre
 ORDER BY sredni_wynik DESC;
 
---10 najpopularniejszych genre--
-
+--10 most popular genres--
 SELECT 
     genre, 
     COUNT(genre) as liczba_genre
@@ -82,7 +84,7 @@ ORDER BY liczba_genre DESC
 LIMIT 10;
 
 
---10 genre których wyprodukowano najmniej i posiadają ponad 10 tytułów (dużo gier ma wyjątkowe połączenie genre)--
+--10 genres that have the least production and have over 10 titles (many games have a unique genre combination)--
 
 SELECT 
     genre, 
@@ -103,8 +105,7 @@ ORDER BY liczba_genre ASC
 LIMIT 10;
 
 
--- wyprodukowane gry w każdej dekadzie(baza danych jest z 2015 roku,więc wyniki nie są rozłożone równomiernie)--
-
+-- games produced in each decade (the database is from 2015, so the results are not evenly distributed) --
 SELECT 
     FLOOR(release_year / 10) * 10 as dekada,
     COUNT(*) as liczba_gier
@@ -122,8 +123,7 @@ WHERE row_num = 1
 GROUP BY dekada
 ORDER BY dekada ASC;
 
---urządzenia na które najczęściej robi/robiło się gry--
-
+--devices for which games are most often made--
 SELECT 
     platform, 
     COUNT(platform) as urządzenia
@@ -142,7 +142,7 @@ GROUP BY platform
 ORDER BY urządzenia DESC;
 
 
---liczba gier na kazda platforme--
+--number of games for each platform--
 
 SELECT COUNT(title), platform
 FROM (
