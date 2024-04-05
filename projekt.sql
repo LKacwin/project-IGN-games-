@@ -13,7 +13,7 @@ SET release_date = CONCAT(
 
 
 
---select results that have score = 10 and non-duplicate titles (different platforms, same games) --
+--select results that have score = 10 and non-duplicate titles (different platforms, same games) we can also make a temporary table instead of subquerie --
 
 SELECT *
 FROM (
