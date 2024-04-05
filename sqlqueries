@@ -30,7 +30,7 @@ FROM (
 WHERE row_num = 1 AND score= 10.0
 ORDER BY score DESC
 
---let's count how many titles there are with a rating of 10-
+--let's count how many titles there are with a rating of 10 --
 
 SELECT COUNT(*) as liczba_wyników_top
 FROM (
